@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import React, { useReducer } from "react";
 import {
   Server,
   TransactionBuilder,
@@ -201,7 +201,7 @@ const Error = ({ error }: ErrorProps) => {
   if (error instanceof AccountRequiresMemoError) {
     message = "This destination requires a memo.";
     extras = (
-      <>
+      <React.Fragment>
         Destination account:
         <br />{" "}
         <EasySelect data-testid="transaction-submitter-error-account-id">
@@ -214,13 +214,13 @@ const Error = ({ error }: ErrorProps) => {
           {error.operationIndex}
         </EasySelect>{" "}
         <br />
-      </>
+      </React.Fragment>
     );
   } else if (error?.response) {
     const { result_codes, result_xdr } = error.response.data?.extras || {};
     message = error.message;
     extras = (
-      <>
+      <React.Fragment>
         extras.result_codes:
         <br />{" "}
         <EasySelect data-testid="transaction-submitter-error-code">
@@ -233,7 +233,7 @@ const Error = ({ error }: ErrorProps) => {
           {result_xdr}
         </EasySelect>{" "}
         <br />
-      </>
+      </React.Fragment>
     );
   } else {
     message =
@@ -241,14 +241,14 @@ const Error = ({ error }: ErrorProps) => {
         ? "Received a bad response when submitting."
         : "An unknown error occurred.";
     extras = (
-      <>
+      <React.Fragment>
         original error:
         <br />
         <EasySelect data-testid="transaction-submitter-error-original">
           {JSON.stringify(error, null, 2)}
         </EasySelect>
         <br />
-      </>
+      </React.Fragment>
     );
   }
 
